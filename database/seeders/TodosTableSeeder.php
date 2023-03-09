@@ -3,7 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use APP\Models\todo;
+use App\Models\todo;
+
 class TodosTableSeeder extends Seeder
 {
     /**
@@ -13,9 +14,9 @@ class TodosTableSeeder extends Seeder
      */
     public function run()
     {
-$todo = [
-         'todoname' => 'tony',
-         ];
+        $todo = [
+            'todoname' => 'tony',
+        ];
 
 
     }
