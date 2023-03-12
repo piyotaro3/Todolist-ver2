@@ -13,9 +13,9 @@ class CreateTodosTable extends Migration
      */
     public function up()
     {
-        Schema::create('todo', function (Blueprint $table) {
+        Schema::create('todos', function (Blueprint $table) {
             $table->id();
-            $table->string('todoname',100);
+            $table->string('todoname',20);
             $table->timestamp('created_at')->useCurrent()->nullable(); 
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });
@@ -29,6 +29,6 @@ class CreateTodosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('todo');
+        Schema::dropIfExists('todos');
     }
 }

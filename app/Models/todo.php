@@ -10,5 +10,5 @@ class todo extends Model
     use HasFactory;
 
     
-    protected $fillable = ['todoname','create_at','update_at'];
+    protected $fillable = ['todoname'];
 }

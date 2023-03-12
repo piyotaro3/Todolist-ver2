@@ -1,49 +1,67 @@
-<!DOCTYPE html>
-<html lang="ja">
+@extends('layouts.default')
+<style>
+    form {
+        width: 100%;
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <title>TodoApp</title>
-</head>
+    .todo_create {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        width: 100%;
+    }
 
-<body>
-    <div class="cntent">
-        <div class="card">
-            <h1 class="tittle">Todo List</h1>
-            <div class="todoarea">
-                <form action="/create" method="post">
-                  @csrf
-                    <input type="text"  class="todo_name" name="todoname">
-                    <input type="submit" class="create_button" value="追加">
-                    <table>
-                        <div class="tablearea">
-                            <tr>
-                                <th>作成日</th>
-                                <th>タスク名</th>
-                                <th>更新</th>
-                                <th>削除</th>
-                            </tr>
-                            <tr>
-                                <td>$時間</td>
-                                <form action="/update"method="post"></form>
-                                <td>
-                                    <input type="text" class="update"value="" name="todoname">
-                                </td>
-                                <td>
-                                    <input type="submit" class="update_button" value="更新">
-                                </td>
+    .todo_name {
+        width: 80%;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        outline: none;
+        font-size: 14px;
+        padding: 5px;
+    }
 
-                            </tr>
+    .create_button {
+        text-align: left;
+        border: 2px solid #dc70fa;
+        font-size: 12px;
+        color: #dc70fa;
+        background-color: #fff;
+        font-weight: bold;
+        padding: 8px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.4s;
+        outline: none;
+    }
 
-                        </div>
-                    </table>
-                </form>
-            </div>
-        </div>
-    </div>
-</body>
+    table {
+        width: 100%;
+        text-align: center
+    }
 
-</html>
+    th {
+        margin-bottom: 10px;
+    }
+</style>
+
+@section('Todo List', 'Todo.blade.php')
+
+@section('Todo List')
+
+
+
+@foreach($lists as $list)
+<table>
+  <tr>
+    <th>作成日</th>
+    <th>タスク名</th>
+    <th>更新</th>
+    <th>削除</th>
+  </tr>
+</table>
+<tr>
+  <td>{{ $list->created_at }}</td>
+  <td>{{ $list->todoname }}</td>
+</tr>
+@endforeach
+@endsection
