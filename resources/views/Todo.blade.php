@@ -50,18 +50,3 @@
 
 
 
-@foreach($lists as $list)
-<table>
-  <tr>
-    <th>作成日</th>
-    <th>タスク名</th>
-    <th>更新</th>
-    <th>削除</th>
-  </tr>
-</table>
-<tr>
-  <td>{{ $list->created_at }}</td>
-  <td>{{ $list->todoname }}</td>
-</tr>
-@endforeach
-@endsection

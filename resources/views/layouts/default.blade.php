@@ -143,11 +143,13 @@
                         @foreach ($lists as $list)
                             <tr>
                                 <td>{{ $list->created_at }}</td>
-                                
+
                                 <form action="/update" method="post">
                                     @csrf
                                     <td>
-                                    <input type="text" class="update_text" value="{{ $list->todoname }}">
+                                        <input type="hidden" name="id">
+                                        <input type="text" class="update_text" name="todoname"
+                                            value="{{ $list->todoname }}">
                                     </td>
                                     <td class="update_button">
                                         <input type="submit" class="update_button" value="更新">

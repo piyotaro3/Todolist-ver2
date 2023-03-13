@@ -11,4 +11,5 @@ class todo extends Model
 
     
     protected $fillable = ['todoname'];
+
 }
