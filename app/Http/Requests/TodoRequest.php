@@ -27,4 +27,13 @@ class TodoRequest extends FormRequest
             'todoname' => 'required|string|max:20',
         ];
     }
+
+    public function messages()
+    {
+        return [
+
+            'todoname.required' => '・タスクを入力してください',
+            'todoname.max' => '・タスクは20文字以内で入力してください。'
+        ];
+    }
 }
