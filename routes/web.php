@@ -1,7 +1,7 @@
 <?php
-
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +13,16 @@ use App\Http\Controllers\TodoController;
 |
 */
 
-Route::get('/',[TodoController::class,'list']);
-Route::get('/', [TodoController::class, 'list']);
+Route::get('/list', [TodoController::class, 'list']);
 Route::post('/create', [TodoController::class, 'create']);
 Route::post('/update', [TodoController::class, 'update']);
+Route::get('/delete', [TodoController::class, 'delete']);
 Route::post('/delete', [TodoController::class, 'remove']);
+Route::get('/test', [TodoController::class, 'test']);
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
