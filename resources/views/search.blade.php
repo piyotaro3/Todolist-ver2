@@ -168,7 +168,7 @@
         <div class="content">
             <div class="card">
                 <div class="header">
-                    <h1 class="tittle">Todo List</h1>
+                    <h1 class="tittle">タスク検索</h1>
                     <div class="log-area">
                         <p class="log-name">「〇〇」でログイン中</p>
                         <form action="/logout" method='post'>
@@ -178,9 +178,6 @@
                         </form>
                     </div>
                 </div>
-                <a class="search-btn" href="/search">
-                    タスク検索
-                </a>
                 <div class="default_todo">
                     @yield('cotnent')
                     <form action="/create" method="post">
@@ -201,6 +198,7 @@
                             <th>更新</th>
                             <th>削除</th>
                         </tr>
+                        {{--  
                         @foreach ($lists as $list)
                             <tr>
                                 <td>{{ $list->created_at }}</td>
@@ -229,7 +227,7 @@
                                     </td>
                                 </form>
                             </tr>
-                        @endforeach
+                        @endforeach--}}
 
                     </table>
                 </div>

@@ -19,6 +19,7 @@ Route::post('/update', [TodoController::class, 'update']);
 Route::get('/delete', [TodoController::class, 'delete']);
 Route::post('/delete', [TodoController::class, 'remove']);
 Route::get('/test', [TodoController::class, 'test']);
+Route::get('/search', [TodoController::class, 'search']);
 
 
 Route::get('/dashboard', function () {

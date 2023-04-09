@@ -14,11 +14,8 @@ class TodosTableSeeder extends Seeder
      */
     public function run()
     {
-        $todo = [
-            'todoname' => 'tony',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ];
+
+        
 
 
     }
