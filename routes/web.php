@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/list', [TodoController::class, 'list']);
-Route::post('/create', [TodoController::class, 'create']);
-Route::post('/update', [TodoController::class, 'update']);
-Route::get('/delete', [TodoController::class, 'delete']);
-Route::post('/delete', [TodoController::class, 'remove']);
-Route::get('/test', [TodoController::class, 'test']);
-Route::get('/search', [TodoController::class, 'search']);
+Route::get('/', [TodoController::class, 'index'])->middleware('auth');
+Route::post('/todo/create', [TodoController::class, 'create'])->middleware('auth');
+Route::post('/todo/update', [TodoController::class, 'update']);
+Route::get('/todo/delete', [TodoController::class, 'delete']);
+Route::post('/todo/delete', [TodoController::class, 'remove']);
+Route::get('/todo/find', [TodoController::class, 'find'])->middleware('auth');
+Route::get('/todo/search', [TodoController::class, 'search'])->middleware('auth');
 
 
 Route::get('/dashboard', function () {

@@ -1,44 +1,37 @@
-<html lang="ja">
+@extends('layouts.layout')
+<style>
+    .search-btn {
+        display: inline-block;
+        border: 2px solid #cdf119;
+        color: #cdf119;
+        text-decoration: none;
+        margin-bottom: 10px;
+        text-align: left;
+        font-size: 12px;
+        background-color: #fff;
+        font-weight: bold;
+        padding: 8px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.4s;
+        outline: none;
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('Todo List')</title>
-    <style>
-        .content {
-            background-color: darkblue;
-            height: 100vh;
-            width: 100%;
-            position: relative;
-        }
-
-        .card {
+    .create_button {
+            text-align: left;
+            border: 2px solid #dc70fa;
+            font-size: 12px;
+            color: #dc70fa;
             background-color: #fff;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 50vw;
-            transform: translate(-50%, -50%);
-            border-radius: 10px;
-            padding: 30px;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .tittle {
             font-weight: bold;
-            font-size: 24px;
-            margin-top: 0;
-            margin-bottom: 15px;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.4s;
+            outline: none;
         }
 
-
-
-        .todo_create {
+         .todo_create {
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
@@ -55,184 +48,34 @@
             padding: 5px;
         }
 
-        .create_button {
-            text-align: left;
-            border: 2px solid #dc70fa;
-            font-size: 12px;
-            color: #dc70fa;
-            background-color: #fff;
-            font-weight: bold;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.4s;
-            outline: none;
-        }
+</style>
+ 
+@section('content') 
 
-        table {
-            width: 100%;
-            text-align: center
-        }
+ @section('find')
+    <a class="search-btn" href="/todo/find">
+        タスク検索
+    </a>
+ @endsection
 
-        tr {
-            width: 100%;
-        }
-
-        th {
-            margin-bottom: 10px;
-        }
-
-        .update_text {
-            width: 90%;
-            padding: 5px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            appearance: none;
-            font-size: 14px;
-            outline: none;
-            text-align: left
-        }
-
-        .update_button {
-            border-color: #fa9770;
-            font-size: 12px;
-            color: #fa9770;
-            background-color: #fff;
-            font-weight: bold;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.4s;
-            outline: none;
-        }
-
-        .delete_button {
-            border-color: #71fadc;
-            font-size: 12px;
-            color: #71fadc;
-            background-color: #fff;
-            font-weight: bold;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.4s;
-            outline: none;
-        }
-
-
-        .search-btn {
-            display: inline-block;
-            border: 2px solid #cdf119;
-            color: #cdf119;
-            text-decoration: none;
-            margin-bottom: 10px;
-            text-align: left;
-            font-size: 12px;
-            background-color: #fff;
-            font-weight: bold;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.4s;
-            outline: none;
-        }
-
-        .log-area {
-            display: flex;
-            align-items: center;
-            font-size: 16px;
-        }
-
-        .log-name {
-            margin-right: 16px
-        }
-
-        .logout {
-            border: 2px solid #FF0000;
-            color: #FF0000;
-            text-align: left;
-            font-size: 12px;
-            background-color: #fff;
-            font-weight: bold;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.4s;
-            outline: none;
-        }
-    </style>
-</head>
-
-<body>
-    <div class=@yield('Todo List')>
-        <div class="content">
-            <div class="card">
-                <div class="header">
-                    <h1 class="tittle">Todo List</h1>
-                    <div class="log-area">
-                        <p class="log-name">「〇〇」でログイン中</p>
-                        <form action="/logout" method='post'>
-                            @csrf
-                            <input type="hidden">
-                            <input type="submit" class="logout" value="ログアウト">
-                        </form>
+ @section('todolist')
+ <div class="default_todo">
+                <form action="/todo/create" method="post">
+                    @csrf
+                    @error('todoname')
+                        <p>{{ $message }}</p>
+                    @enderror
+                    <div class="todo_create">
+                        <input type="text" class="todo_name" name="todoname">
+                        <select name="tag_id" class=select_tag>
+                            @foreach ($tags as $tag)
+                                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                            @endforeach
+                        </select>
+                        @yield('create_btn')
+                        <input type="hidden" name="user_id" value="{{ $user->id }}">
+                        <input type="submit" class="create_button" value='追加'>
                     </div>
-                </div>
-                <a class="search-btn" href="/search">
-                    タスク検索
-                </a>
-                <div class="default_todo">
-                    @yield('cotnent')
-                    <form action="/create" method="post">
-                        @csrf
-                        @error('todoname')
-                            <p>{{ $message }}</p>
-                        @enderror
-                        <div class="todo_create">
-                            <input type="text" class="todo_name" name="todoname">
-                            <input type="submit" class="create_button" value="追加">
-                        </div>
-                    </form>
-                    <table class="defaul_table">
-                        <tr>
-                            <th>作成日</th>
-                            <th>タスク名</th>
-                            <th>タグ</th>
-                            <th>更新</th>
-                            <th>削除</th>
-                        </tr>
-                        @foreach ($lists as $list)
-                            <tr>
-                                <td>{{ $list->created_at }}</td>
-
-                                <form action="/update" method="post">
-                                    @csrf
-                                    <td>
-                                        <input type="hidden" name="id" value="{{ $list->id }}">
-                                        <input type="text" class="update_text" name="todoname"
-                                            value="{{ $list->todoname }}">
-                                    </td>
-                                    <td>
-                                        <select name="tag"></select>
-                                    </td>
-                                    <td class="update_button">
-                                        <input type="submit" class="update_button" value="更新">
-                                    </td>
-                                </form>
-                                <form action="/delete" method="post">
-                                    @csrf
-                                    <td class="delete_button">
-                                        <input type="hidden" name="id" value="{{ $list->id }}">
-                                        <input type="hidden" class="delete_text" name="todoname"
-                                            value="{{ $list->todoname }}">
-                                        <input type="submit" class=delete_button value="削除">
-                                    </td>
-                                </form>
-                            </tr>
-                        @endforeach
-
-                    </table>
-                </div>
-            </div>
-        </div>
-</body>
+                </form>
+@endsection
+@endsection

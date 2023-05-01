@@ -4,16 +4,23 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
-use App\Models\todo;
+use App\Models\Todo;
+use App\Models\Tag;
 use App\Http\Requests\TodoRequest;
+use illuminate\support\Facades\Auth;
 
 
 class TodoController extends Controller
 {
-    public function list()
+    public function index()
     {
-        $lists = Todo::all();
-        return view('Todo', ['lists' => $lists]);
+        $user = Auth::user();
+        $lists = Todo::where('user_id', Auth::user()->id)->get();
+        $tags = Tag::all();
+
+        $param = ['lists' => $lists, 'user' => $user, 'tags' => $tags];
+
+        return view('Todo', $param);
     }
 
     public function create(TodoRequest $request)
@@ -35,9 +42,30 @@ class TodoController extends Controller
         Todo::find($request->id)->delete();
         return redirect('/');
     }
-    public function search()
+    public function find()
     {
-        $list = Todo::all();
-      return view('/search',['list' => $list]);        
+        $lists = [];
+        $user = Auth::user();
+        $tags = Tag::all();
+        $param = ['lists' => $lists, 'user' => $user, 'tags' => $tags];
+        return view('search', $param, );
+
+    }
+    
+    public function search(Request $request)
+    {
+        $todoname = $request->input('todoname');
+        $tags = Tag::all();
+        $user = Auth::user();
+        $lists = Todo::where('todoname', 'LIKE BINARY', "% {$todoname}%")->get();
+        $param = [
+
+            'lists' => $lists,
+            'user' => $user,
+            'tags' => $tags,
+        ];
+
+        return view('search', $param);
+
     }
 }
