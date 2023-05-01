@@ -160,11 +160,11 @@
                                 <input type="hidden" name="id" value="{{ $list->id }}">
                                 <input type="text" class="update_text" name="todoname" value="{{ $list->todoname }}">
                             </td>
-                            {{-- タグについて --}}
+
                             <td>
                                 <select name="tag_id" class=select_tag>
                                     @foreach ($tags as $tag)
-                                        <option value="{{ $tag->id }}" selected="selected">
+                                        <option value="{{ $tag->id }}" @if($tag->id==$list->tag_id)selected="selected">@endif
                                             {{ $tag->name }}</option>
                                     @endforeach
                                 </select>
