@@ -56,6 +56,7 @@
             <input type="text" class="todo_name" name="todoname">
             <select name="tag_id" class=select_tag>
                 @foreach ($tags as $tag)
+                    <option value=""hidden></option>
                     <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                 @endforeach
             </select>

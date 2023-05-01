@@ -51,20 +51,19 @@ class TodoController extends Controller
         return view('search', $param, );
 
     }
-    
-    public function search(Request $request)
+
+    public function search(Request $request,Tag $tag)
     {
-        $todoname = $request->input('todoname');
+        $todoname = $request->input('todoname','tag_id');
         $tags = Tag::all();
         $user = Auth::user();
-        $lists = Todo::where('todoname', 'LIKE BINARY', "% {$todoname}%")->get();
+        $lists = Todo::where('todoname','LIKE BINARY',"%{$todoname}%")->orwhere('tag_id','tag_id')->get();
         $param = [
 
             'lists' => $lists,
             'user' => $user,
             'tags' => $tags,
         ];
-
         return view('search', $param);
 
     }

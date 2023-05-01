@@ -160,6 +160,7 @@
                                 <input type="hidden" name="id" value="{{ $list->id }}">
                                 <input type="text" class="update_text" name="todoname" value="{{ $list->todoname }}">
                             </td>
+                            {{-- タグについて --}}
                             <td>
                                 <select name="tag_id" class=select_tag>
                                     @foreach ($tags as $tag)
