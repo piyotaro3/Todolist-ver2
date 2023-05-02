@@ -22,7 +22,7 @@ class todo extends Model
 
     public function tags()
     {
-        return $this->belongsTo('App\Models\Tags','tag_id');
+        return $this->belongsTo('App\Models\Tag','tag_id');
     }
 
 }

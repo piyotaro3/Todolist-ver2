@@ -15,18 +15,15 @@ class CreateTodosTable extends Migration
     {
         Schema::create('todos', function (Blueprint $table) {
             $table->id();
-            $table->string('todoname',20);
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('tag_id');
-            $table->timestamp('created_at')->useCurrent()->nullable(); 
+            $table->string('todoname', 20);
+            $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
-
-            $table->foreign('user_id')->references('id')->on('Users');
-            $table->foreign('tag_id')->references('id')->on('Tags');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('tag_id')->constrained();
         });
-        
+
     }
-       
+
 
     /**
      * Reverse the migrations.
