@@ -54,10 +54,28 @@ class TodoController extends Controller
 
     public function search(Request $request)
     {
-        $todoname = $request->input('todoname', 'tag_id');
+        $todoname = $request->input('todoname');
+        $tag_id = $request->input('tag_id');
         $tags = Tag::all();
         $user = Auth::user();
-        $lists = Todo::where('user_id', Auth::user()->id)->where('todoname', 'LIKE BINARY', "%{$todoname}%")->orwhere('tag_id', 'tag_id')->get();
+
+        if ($todoname != null) {
+            $lists = Todo::where('user_id', Auth::user()->id)->where('todoname', 'LIKE BINARY', "%{$todoname}%")->get();
+        }
+
+        if ($tag_id != null) {
+            $lists = Todo::where('user_id', Auth::user()->id)->where('tag_id', $tag_id)->get();
+        }
+        if ($todoname != null) {
+            if ($tag_id != null) {
+                $lists = Todo::where('user_id', Auth::user()->id)->where('todoname', 'LIKE BINARY', "%{$todoname}%")->where('tag_id', $tag_id)->get();
+            }
+        }
+        if ($todoname == null) {
+            if ($tag_id == null) {
+                $lists = Todo::where('user_id', Auth::user()->id)->get();
+            }
+        }
         $param = [
 
             'lists' => $lists,

@@ -162,10 +162,16 @@
                             </td>
 
                             <td>
-                                <select name="tag_id" class=select_tag>
+                                <select name="tag_id" class=select_tag >
                                     @foreach ($tags as $tag)
-                                        <option value="{{ $tag->id }}" @if($tag->id==$list->tag_id)selected="selected">@endif
-                                            {{ $tag->name }}</option>
+                                    @if($tag->id == $list->tag_id)
+                                        <option value="{{ $tag->id }}" selected="selected">
+                                            {{ $tag->name }}
+                                            
+                                        </option>
+                                        @else
+                                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                         @endif
                                     @endforeach
                                 </select>
                             </td>
