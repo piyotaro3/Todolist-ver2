@@ -23,6 +23,7 @@ class CreateTodosTable extends Migration
         });
 
     }
+    
 
 
     /**
